@@ -20,7 +20,7 @@ func main() {
 	PORT := os.Getenv("PORT")
 
 	if err != nil {
-		panic(err)
+		slog.Warn("failed to load .env")
 	}
 
 	if PORT == "" {
