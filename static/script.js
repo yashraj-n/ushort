@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const longUrlInput = document.getElementById('long-url');
   const shortenBtn = document.getElementById('shorten-btn');
   const resultContainer = document.querySelector('.result-container');
-  const shortUrlDisplay = document.getElementById('short-url');
   const copyBtn = document.getElementById('copy-btn');
   const qrBtn = document.getElementById('qr-btn');
   const qrContainer = document.querySelector('.qr-container');
@@ -15,18 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileNav = document.querySelector('.mobile-nav');
   const mobileNavClose = document.querySelector('.mobile-nav-close');
   
-  // Base URL for short links
-  const baseUrl = 'https://linksnip.io/';
-  
-  // Random string generator (simulating a backend)
-  function generateRandomString(length = 7) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < length; i++) {
-      result += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return result;
-  }
+  // Get current hostname for short links
+  const baseUrl = window.location.origin + '/';
   
   // URL validation
   function isValidUrl(url) {
@@ -72,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Shorten URL event handler
-  shortenBtn.addEventListener('click', function() {
+  shortenBtn.addEventListener('click', async function() {
     const longUrl = longUrlInput.value.trim();
     
     if (!longUrl) {
@@ -89,19 +78,34 @@ document.addEventListener('DOMContentLoaded', function() {
     shortenBtn.querySelector('span').style.display = 'none';
     loadingSpinner.style.display = 'block';
     
-    // Simulate API call with setTimeout
-    setTimeout(() => {
-      const shortCode = generateRandomString();
-      const shortUrl = baseUrl + shortCode;
+    try {
+      const response = await fetch('/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ link: longUrl })
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Failed to shorten URL');
+      }
+
+      const hash = await response.text();
+      const shortUrl = baseUrl + hash;
       
       // Update the UI
+      const shortUrlDisplay = document.createElement('a');
+      shortUrlDisplay.href = shortUrl;
       shortUrlDisplay.textContent = shortUrl;
-      shortUrlDisplay.href = longUrl;
-      resultContainer.style.display = 'block';
+      shortUrlDisplay.target = '_blank';
       
-      // Hide loading state
-      shortenBtn.querySelector('span').style.display = 'inline';
-      loadingSpinner.style.display = 'none';
+      const resultHeader = resultContainer.querySelector('.result-header div:first-child');
+      resultHeader.innerHTML = '<p>Your shortened URL:</p>';
+      resultHeader.appendChild(shortUrlDisplay);
+      
+      resultContainer.style.display = 'block';
       
       // Generate QR code for the short URL
       generateQRCode(shortUrl);
@@ -113,11 +117,20 @@ document.addEventListener('DOMContentLoaded', function() {
       qrContainer.style.display = 'none';
       
       showNotification('URL shortened successfully!');
-    }, 1000);
+    } catch (error) {
+      showNotification(error.message, 'error');
+    } finally {
+      // Hide loading state
+      shortenBtn.querySelector('span').style.display = 'inline';
+      loadingSpinner.style.display = 'none';
+    }
   });
   
   // Copy button event handler
   copyBtn.addEventListener('click', function() {
+    const shortUrlDisplay = resultContainer.querySelector('.result-header a');
+    if (!shortUrlDisplay) return;
+    
     const textToCopy = shortUrlDisplay.textContent;
     
     navigator.clipboard.writeText(textToCopy)
