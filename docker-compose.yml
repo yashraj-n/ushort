@@ -6,9 +6,9 @@ services:
     env_file:
       - .env.prod
     environment:
-      - PORT=${PORT:-8080}
+      - PORT=${PORT:-10000}
     ports:
-      - "${PORT:-8080}:${PORT:-8080}"
+      - "${PORT:-10000}:${PORT:-10000}"
     restart: unless-stopped
     networks:
       - ushort
