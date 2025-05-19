@@ -1,14 +1,7 @@
 package api
 
-import (
-	_ "embed"
-	"fmt"
-	"net/http"
-)
-
-//go:embed index.html
-var page string
+import "net/http"
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, page)
+	http.ServeFile(w, r, "./static/index.html")
 }

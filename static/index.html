@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>uShort - URL Shortener</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo">u<span>Short</span></a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="https://github.com/yashraj-n/ushort" target="_blank" class="btn btn-outline" style="padding: 8px 16px;">GitHub</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div class="mobile-nav">
+    <div class="mobile-nav-header">
+      <a href="#" class="logo">u<span>Short</span></a>
+      <button class="mobile-nav-close">✕</button>
+    </div>
+    <ul class="mobile-nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="https://github.com/yashraj-n/ushort" target="_blank" class="btn" style="display: inline-block; margin-top: 16px;">GitHub</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content text-center">
+        <h1>Simple URL Shortener & QR Generator</h1>
+        <p>Create short links and QR codes instantly - free and open source.</p>
+        <div class="url-shortener-form">
+          <input type="url" id="long-url" placeholder="Paste a long URL here..." autocomplete="off">
+          <button id="shorten-btn" class="btn pulse-animation">
+            <span>Shorten URL</span>
+            <div class="loading-spinner"></div>
+          </button>
+        </div>
+        <div class="result-container">
+          <div class="result-header">
+            <div>
+              <p>Your shortened URL:</p>
+            </div>
+            <div class="result-actions">
+              <button id="copy-btn" class="btn btn-outline" style="padding: 8px 16px;">Copy</button>
+              <button id="qr-btn" class="btn btn-outline" style="padding: 8px 16px;">QR Code</button>
+            </div>
+          </div>
+          <div class="qr-container" style="display: none;">
+            <div id="qrcode"></div>
+            <button id="download-qr" class="btn btn-outline" style="padding: 8px 16px;">Download QR Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="text-center">
+        <h2>Features of <span class="gradient-text">uShort</span></h2>
+        <p>Simple, powerful features to enhance your links.</p>
+      </div>
+      <div class="features-grid">
+        <div class="card feature-card fade-in">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>URL Shortening</h3>
+          <p>Create short, memorable links that redirect to your long URLs. Perfect for social media, email campaigns, and print materials.</p>
+        </div>
+        <div class="card feature-card fade-in">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4v1m6 11h2m-6 0h-2v4m0-11v-4m6 4v4m-6-4h4m-4 0H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>QR Code Generator</h3>
+          <p>Generate QR codes for your shortened links instantly. Perfect for print materials, business cards, and physical marketing.</p>
+        </div>
+        <div class="card feature-card fade-in">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Open Source</h3>
+          <p>Free and open source URL shortener. Contribute to the project on GitHub and help make it better.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-links">
+          <a href="#" class="logo" style="margin-bottom: 16px;">u<span>Short</span></a>
+          <p>Made with ❤️ by <a href="https://yashrajn.com" target="_blank" style="color: var(--neutral-400); text-decoration: underline;">Yashraj Narke</a></p>
+          <div class="social-links">
+            <a href="https://github.com/yashraj-n/ushort" target="_blank" class="social-icon">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 uShort. Open Source URL Shortener.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification -->
+  <div class="notification" id="notification"></div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

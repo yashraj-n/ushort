@@ -38,6 +38,7 @@ func main() {
 	})))
 
 	router.Get("/", api.HandleIndex)
+	router.Get("/static/*", api.HandleStaticFiles)
 	router.Post("/submit", api.HandleSubmit)
 	router.Get("/{hash}", api.HandleRedirect)
 
@@ -46,7 +47,7 @@ func main() {
 		Handler: router,
 	}
 
-	slog.Info("Server started on http://localhost:" + PORT)
+	slog.Info("Server started on http://0.0.0.0:" + PORT)
 
 	err = server.ListenAndServe()
 
