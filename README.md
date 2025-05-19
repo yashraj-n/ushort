@@ -72,29 +72,31 @@ The service can be configured using environment variables:
 
 ## 🚀 API Endpoints
 
-* `POST /api/shorten` - Create a shortened URL
-* `GET /:shortCode` - Redirect to original URL
-* `GET /api/stats/:shortCode` - Get URL statistics
+* `GET /` - Serves the main web interface
+* `GET /static/*` - Serves static files (CSS, JavaScript, images)
+* `POST /submit` - Create a shortened URL
+* `GET /{hash}` - Redirect to original URL
 
 ## 📖 API Documentation
 
 ### Shorten URL
 ```http
-POST /api/shorten
+POST /submit
 Content-Type: application/json
 
 {
-    "url": "https://example.com/very-long-url"
+    "link": "https://example.com/very-long-url"
 }
 ```
 
 Response:
 ```json
-{
-    "shortUrl": "http://localhost:8080/abc123",
-    "originalUrl": "https://example.com/very-long-url",
-    "expiresAt": "2024-05-14T00:00:00Z"
-}
+"abc123"  // The hash of the shortened URL
+```
+
+To use the shortened URL, simply append the hash to the base URL:
+```
+http://localhost:8080/abc123
 ```
 
 ## 🤝 Contributing
