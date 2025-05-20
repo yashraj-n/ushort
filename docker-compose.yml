@@ -21,7 +21,8 @@ services:
       - redis-data:/data
     networks:
       - ushort
-
+volumes:
+  redis-data:
 networks:
   ushort:
     name: ushort
