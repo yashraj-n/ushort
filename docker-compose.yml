@@ -10,12 +10,15 @@ services:
     ports:
       - "${PORT:-10000}:${PORT:-10000}"
     restart: unless-stopped
+    depends_on:
+      - redis
     networks:
       - ushort
-
   redis:
     image: redis:latest
     restart: unless-stopped
+    volumes:
+      - redis-data:/data
     networks:
       - ushort
 
